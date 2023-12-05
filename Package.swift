@@ -9,11 +9,20 @@ let package = Package(
     products: [
         .library(
             name: "LayoutBuilder",
-            targets: ["LayoutBuilder"]),
+            targets: [
+              "LayoutBuilder"
+            ]
+        )
+    ],
+    dependencies: [
+      .package(url: "https://github.com/SnapKit/SnapKit.git", from: "5.6.0")
     ],
     targets: [
         .target(
-            name: "LayoutBuilder"
+            name: "LayoutBuilder",
+            dependencies: [
+              "SnapKit"
+            ]
         )
     ]
 )
