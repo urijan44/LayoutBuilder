@@ -14,15 +14,9 @@ let package = Package(
             ]
         )
     ],
-    dependencies: [
-      .package(url: "https://github.com/SnapKit/SnapKit.git", from: "5.6.0")
-    ],
     targets: [
         .target(
-            name: "LayoutBuilder",
-            dependencies: [
-              "SnapKit"
-            ]
+            name: "LayoutBuilder"
         )
     ]
 )
