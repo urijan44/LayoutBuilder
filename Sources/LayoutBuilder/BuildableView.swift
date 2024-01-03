@@ -10,9 +10,9 @@ import UIKit
 open class BuildableView: NiblessUIView {
   
   let defaultAxis: NSLayoutConstraint.Axis
-  var contentView = UIStackView()
-  var intrinsicContentWidth: CGFloat?
-  var intrinsicContentHeight: CGFloat?
+  public var contentView = UIStackView()
+  public var intrinsicContentWidth: CGFloat?
+  public var intrinsicContentHeight: CGFloat?
   
   open override var intrinsicContentSize: CGSize {
     CGSize(
@@ -33,7 +33,7 @@ open class BuildableView: NiblessUIView {
     setup(stackView: contentView)
   }
   
-  func setup(stackView: UIStackView) {
+  open func setup(stackView: UIStackView) {
     addSubview(contentView)
     contentView.axis = defaultAxis
     contentView.alignment = .center

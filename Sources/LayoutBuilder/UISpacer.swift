@@ -9,7 +9,7 @@ import UIKit
 
 public final class UISpacer: UIView {
   private var axis: NSLayoutConstraint.Axis = .vertical
-  var spacing: CGFloat {
+  public var spacing: CGFloat {
     didSet {
       invalidateIntrinsicContentSize()
     }

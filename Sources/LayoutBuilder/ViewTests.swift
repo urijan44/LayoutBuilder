@@ -20,19 +20,29 @@ final class ViewTests: BuildableView {
     didSet {
       dynamicSpacer.spacing = spacing
       spacingLabel.text = "\(spacing)"
+      UIView.animate(withDuration: 0.3) {
+        self.layoutIfNeeded()
+      }
     }
   }
   private var dynamicSpacer: UISpacer!
+  
+  override var intrinsicContentSize: CGSize {
+    return contentView.intrinsicContentSize
+  }
   
   init(contents: [String]) {
     self.contents = contents
     super.init(axis: .vertical, frame: .zero)
     contentView.spacing = 3
+    backgroundColor = .white
+    contentView.distribution = .fill
   }
   
   override func setup(stackView: UIStackView) {
     super.setup(stackView: stackView)
     stackView.addArrangedSubviews {
+      UISpacer(spacing: 66)
       UILabel()
         .modify { label in
           label.text = "\(spacing)"
@@ -72,15 +82,16 @@ final class ViewTests: BuildableView {
             .storeReference(store: &dynamicSpacer)
         }
       }
+      UIView()
     }
   }
   
   @objc
   private func didTapArrowButton(_ sender: UIButton) {
     if sender.tag == 0 {
-      spacing -= 1
+      spacing -= 10
     } else if sender.tag == 1 {
-      spacing += 1
+      spacing += 10
     }
   }
 }
