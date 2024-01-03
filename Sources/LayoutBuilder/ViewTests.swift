@@ -8,8 +8,22 @@
 import UIKit
 
 final class ViewTests: BuildableView {
+  let colors: [String: UIColor] = [
+    "Hello": .red,
+    "World": .blue,
+    "Swift": .orange
+  ]
   let contents: [String]
 
+  private var spacingLabel: UILabel!
+  private var spacing: CGFloat = 33 {
+    didSet {
+      dynamicSpacer.spacing = spacing
+      spacingLabel.text = "\(spacing)"
+    }
+  }
+  private var dynamicSpacer: UISpacer!
+  
   init(contents: [String]) {
     self.contents = contents
     super.init(axis: .vertical, frame: .zero)
@@ -19,10 +33,23 @@ final class ViewTests: BuildableView {
   override func setup(stackView: UIStackView) {
     super.setup(stackView: stackView)
     stackView.addArrangedSubviews {
-      for content in contents {
-        UILabel()
-          .modify { label in
-            label.text = content
+      UILabel()
+        .modify { label in
+          label.text = "\(spacing)"
+        }
+        .storeReference(store: &spacingLabel)
+      UIStackView(axis: .horizontal) {
+        UIButton(type: .system)
+          .modify {
+            $0.setImage(UIImage(systemName: "arrow.left"), for: .normal)
+            $0.addTarget(self, action: #selector(didTapArrowButton(_:)), for: .touchUpInside)
+            $0.tag = 0
+          }
+        UIButton(type: .system)
+          .modify {
+            $0.setImage(UIImage(systemName: "arrow.right"), for: .normal)
+            $0.addTarget(self, action: #selector(didTapArrowButton(_:)), for: .touchUpInside)
+            $0.tag = 1
           }
       }
       UISpacer(spacing: 12)
@@ -30,13 +57,31 @@ final class ViewTests: BuildableView {
         UILabel()
           .modify { label in
             label.text = content
+            label.backgroundColor = colors[content]
+          }
+      }
+      UISpacer(spacing: 12)
+      for content in contents {
+        UILabel()
+          .modify { label in
+            label.text = content
+            label.backgroundColor = colors[content]
           }
         if content == "World" {
-          UISpacer(spacing: 33)
+          UISpacer(spacing: spacing)
+            .storeReference(store: &dynamicSpacer)
         }
       }
     }
-    backgroundColor = .red
+  }
+  
+  @objc
+  private func didTapArrowButton(_ sender: UIButton) {
+    if sender.tag == 0 {
+      spacing -= 1
+    } else if sender.tag == 1 {
+      spacing += 1
+    }
   }
 }
 

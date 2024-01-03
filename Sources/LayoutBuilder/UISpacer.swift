@@ -9,7 +9,11 @@ import UIKit
 
 public final class UISpacer: UIView {
   private var axis: NSLayoutConstraint.Axis = .vertical
-  private let spacing: CGFloat
+  var spacing: CGFloat {
+    didSet {
+      invalidateIntrinsicContentSize()
+    }
+  }
   
   public override var intrinsicContentSize: CGSize {
     CGSize(width: axis == .horizontal ? spacing : 0, height: axis == .vertical ? spacing : 0)

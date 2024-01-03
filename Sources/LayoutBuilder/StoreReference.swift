@@ -11,7 +11,7 @@ public protocol StoreReference {}
 
 public extension StoreReference where Self: Any {
   @discardableResult
-  func storeReference<T>(_ store: inout T?) -> T {
+  func storeReference<T>(store: inout T?) -> T {
     store = self as? T
     return store!
   }
