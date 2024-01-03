@@ -12,7 +12,8 @@ final class ViewTests: BuildableView {
 
   init(contents: [String]) {
     self.contents = contents
-    super.init(frame: .zero)
+    super.init(axis: .vertical, frame: .zero)
+    contentView.spacing = 3
   }
   
   override func setup(stackView: UIStackView) {

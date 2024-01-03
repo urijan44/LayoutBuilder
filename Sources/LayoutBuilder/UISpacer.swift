@@ -28,6 +28,15 @@ public final class UISpacer: UIView {
   }
   
   private func setup() {
+    updateAxis()
+  }
+  
+  public override func layoutSubviews() {
+    super.layoutSubviews()
+    updateAxis()
+  }
+  
+  private func updateAxis() {
     guard let axis = (superview as? UIStackView)?.axis else { return }
     self.axis = axis
     invalidateIntrinsicContentSize()
