@@ -69,6 +69,10 @@ final class ViewTests: BuildableView {
             label.text = content
             label.backgroundColor = colors[content]
           }
+        UIDivider()
+          .modify { divider in
+            divider.configuration.axis = .horizontal
+          }
       }
       UISpacer(spacing: 12)
       for content in contents {
