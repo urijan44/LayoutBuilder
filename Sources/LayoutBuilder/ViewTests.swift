@@ -34,8 +34,8 @@ final class ViewTests: BuildableView {
   init(contents: [String]) {
     self.contents = contents
     super.init(axis: .vertical, frame: .zero)
-    contentView.spacing = 3
-    backgroundColor = .white
+    contentView.spacing = 0
+    backgroundColor = .green
     contentView.distribution = .fill
   }
   
@@ -55,6 +55,12 @@ final class ViewTests: BuildableView {
             $0.addTarget(self, action: #selector(didTapArrowButton(_:)), for: .touchUpInside)
             $0.tag = 0
           }
+        UIDivider()
+          .modify { divider in
+            divider.configuration.weight = 1
+            divider.configuration.color = .red
+            divider.configuration.inset = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
+          }
         UIButton(type: .system)
           .modify {
             $0.setImage(UIImage(systemName: "arrow.right"), for: .normal)
@@ -68,6 +74,13 @@ final class ViewTests: BuildableView {
           .modify { label in
             label.text = content
             label.backgroundColor = colors[content]
+          }
+        UIDivider()
+          .modify { divider in
+            divider.configuration.axis = .horizontal
+            divider.configuration.weight = 1
+            divider.configuration.color = .red
+            divider.configuration.inset = UIEdgeInsets(top: 6, left: 4, bottom: 6, right: 4)
           }
       }
       UISpacer(spacing: 12)
