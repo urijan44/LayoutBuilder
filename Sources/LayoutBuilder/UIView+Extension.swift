@@ -17,4 +17,9 @@ public extension UIView {
       addSubview(view)
     }
   }
+  
+  convenience init(frame: CGRect = .zero ,@AddSubviewBuilder _ views: () -> [UIView]) {
+    self.init(frame: frame)
+    addSubviews(views)
+  }
 }
